@@ -14,7 +14,7 @@ cells.forEach(function(cell){
 
 // when a cell is clicked → run handleClick
 function handleClick(event) {
-    // This is the thing that was clicked
+    // This is the cell that was clicked
     const cell = event.target;
 
     // store index of clicked cell
