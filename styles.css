@@ -19,7 +19,7 @@ label {
     font-size: 37px;
     padding: 10px;
     text-decoration: underline;
-    text-underline-offset: 5px;
+    text-underline-offset: 10px;
 }
 
 .cells {

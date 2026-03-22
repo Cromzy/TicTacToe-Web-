@@ -15,7 +15,7 @@ function resetGame() {
     });
     cellDisabled(cells, false); // enable cells
     moves = 0; // reset moves
-    let label = "X"; // reset label
+    label = "X"; // reset label
     playerTurn.textContent = `Turn player: ${label}`; // reset label text
 }
 // For every cell… do this (simple for loop)
@@ -108,45 +108,37 @@ function cellDisabled(cells, boolValue) {
 }
 
 function checkRows(board) {
-    if (board[0] === "X" && board[1] === "X" && board[2] === "X" ||
-        board[0] === "O" && board[1] === "O" && board[2] === "O") {
+    if (board[0] === board[1] && board[1] === board[2] && board[0] !== "") {
         return true;
     }
-    else if (board[3] === "X" && board[4] === "X" && board[5] === "X" ||
-        board[3] === "O" && board[4] === "O" && board[5] === "O") {
+    else if (board[3] === board[4] && board[4] === board[5] && board[3] !== "") {
         return true;
     }
-    else if (board[6] === "X" && board[7] === "X" && board[8] === "X" ||
-        board[6] === "O" && board[7] === "O" && board[8] === "O") {
+    else if (board[6] === board[7] && board[7] === board[8] && board[6] !== "") {
         return true;
     }
     return false;
 }
 function checkColumns(board) {
-    if (board[0] === "X" && board[3] === "X" && board[6] === "X" ||
-        board[0] === "O" && board[3] === "O" && board[6] === "O") {
+    if (board[0] === board[3] && board[3] === board[6] && board[0] !== "") {
         return true;
     }
-    else if (board[1] === "X" && board[4] === "X" && board[7] === "X" ||
-        board[1] === "O" && board[4] === "O" && board[7] === "O") {
+    else if (board[1] === board[4] && board[4] === board[7] && board[1] !== "") {
         return true;
     }
-    else if (board[2] === "X" && board[5] === "X" && board[8] === "X" ||
-        board[2] === "O" && board[5] === "O" && board[8] === "O") {
+    else if (board[2] === board[5] && board[5] === board[8] && board[2] !== "") {
         return true;
     }
     return false;
 }
 function checkTopLeftToBottomRight(board) {
-    if (board[0] === "X" && board[4] === "X" && board[8] === "X" ||
-        board[0] === "O" && board[4] === "O" && board[8] === "O") {
+    if (board[0] === board[4] && board[4] === board[8] && board[0] !== "") {
         return true;
     }
     return false;
 }
 function checkTopRightToBottomLeft(board) {
-    if (board[2] === "X" && board[4] === "X" && board[6] === "X" ||
-        board[2] === "O" && board[4] === "O" && board[6] === "O") {
+    if (board[2] === board[4] && board[4] === board[6] && board[2] !== "") {
         return true;
     }
     return false;
