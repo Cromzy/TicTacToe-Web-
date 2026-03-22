@@ -22,8 +22,6 @@ label {
     text-underline-offset: 5px;
 }
 
-
-
 .cells {
     display: flex;
     justify-content: center;
@@ -42,16 +40,17 @@ label {
     font-style: bold;
 }
 
-button {
+.rows button {
     margin: 5px; 
-    font-size: 20px;
-    padding: 45px;
+    height: 100px;
+    width: 100px;
     background-color: transparent;
     border-radius: 10px;
     border-width: 2px;
     transition: background-color 1s;
 }
-button:hover {
+
+.rows button:hover {
     background-color: rgb(255, 255, 255);
     cursor:pointer;
 }
@@ -59,6 +58,14 @@ button:hover {
 .rows {
     display: flex;
     flex-direction: row;
+}
+
+#resetBtn {
+    margin: 20px;
+    padding: 20px;
+}
+#resetBtn:hover {
+    cursor:pointer;
 }
 
 /* #cell1 {

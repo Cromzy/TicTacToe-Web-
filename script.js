@@ -1,11 +1,23 @@
 // Selects all elements with class cell and stores them in a list I can loop through.
 const cells = document.querySelectorAll(".cell");
 const playerTurn = document.getElementById("playerTurn");
+const resetBtn = document.getElementById("resetBtn");
 
 let moves = 0;
 let label = "X";
 playerTurn.textContent = `Turn player: ${label}`;
 
+resetBtn.addEventListener("click", resetGame);
+
+function resetGame() {
+    cells.forEach(function (cell) {
+        cell.textContent = ""; // reset all cells
+    });
+    cellDisabled(cells, false); // enable cells
+    moves = 0; // reset moves
+    let label = "X"; // reset label
+    playerTurn.textContent = `Turn player: ${label}`; // reset label text
+}
 // For every cell… do this (simple for loop)
 cells.forEach(function (cell) {
     // When this cell is clicked, run handleClick
@@ -44,7 +56,7 @@ function createArray(cells) {
 }
 
 function checkDraw() {
-    if (moves > 8) 
+    if (moves > 8)
         return true
     else
         return false
