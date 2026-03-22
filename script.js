@@ -5,6 +5,7 @@ const resetBtn = document.getElementById("resetBtn");
 
 let moves = 0;
 let label = "X";
+let result = [];
 playerTurn.textContent = `Turn player: ${label}`;
 
 resetBtn.addEventListener("click", resetGame);
@@ -17,6 +18,12 @@ function resetGame() {
     moves = 0; // reset moves
     label = "X"; // reset label
     playerTurn.textContent = `Turn player: ${label}`; // reset label text
+
+    // for each cell in result, remove complete css class
+        result.forEach(function(index) {
+            cells[index].classList.remove("complete");
+        });
+        result.length = 0; // empty array
 }
 // For every cell… do this (simple for loop)
 cells.forEach(function (cell) {
@@ -28,9 +35,6 @@ cells.forEach(function (cell) {
 function handleClick(event) {
     // This is the cell that was clicked
     const cell = event.target;
-
-    // store index of clicked cell
-    const index = cell.dataset.index;
 
     // If this cell is already X or O?
     if (cell.textContent === "X" || cell.textContent === "O") {
@@ -47,8 +51,9 @@ function handleClick(event) {
     label = switchTurns(label);
 }
 
+// creates an array with the current cell values
 function createArray(cells) {
-    let num = [];
+    let num = []; // 
     cells.forEach(function (cell) {
         num.push(cell.textContent);
     });
@@ -56,21 +61,18 @@ function createArray(cells) {
 }
 
 function checkDraw() {
-    if (moves > 8)
-        return true
-    else
-        return false
+    return moves > 8; // returns true or false
 }
 
 function switchTurns(s) {
+
     if (s === "X") {
         playerTurn.textContent = `Turn player: O`;
         return "O";
     }
-    else {
+    // else
         playerTurn.textContent = `Turn player: X`;
         return "X";
-    }
 
 }
 
@@ -79,15 +81,41 @@ function checkGameOver(board) {
     let draw = false;
     console.log("CHECK 1!");
 
-    if (checkRows(board)) winner = true;
-    else if (checkColumns(board)) winner = true;
-    else if (checkTopLeftToBottomRight(board)) winner = true;
-    else if (checkTopRightToBottomLeft(board)) winner = true;
-    else if (checkDraw()) draw = true;
+    // Get return value (either array or false)
+    let rowResult = checkRows(board);
+    let columnResult = checkColumns(board);
+    let topLeftToBottomRightResult = checkTopLeftToBottomRight(board);
+    let topRightToBottomLeftResult = checkTopRightToBottomLeft(board);
+    let drawResult = checkDraw();
+
+    // if-statement, checks which returned an array/true value(draw or array)
+    if (rowResult) {
+        winner = true; // set winner flag to true
+        result = rowResult; // set result array = returned cell indexes
+    }
+    else if (columnResult) {
+        winner = true; // set winner flag to true
+        result = columnResult; // set result array = returned cell indexes
+    }
+    else if (topLeftToBottomRightResult) {
+        winner = true; // set winner flag to true
+        result = topLeftToBottomRightResult; // set result array = returned cell indexes
+    }
+    else if (topRightToBottomLeftResult) {
+        winner = true; // set winner flag to true
+        result = topRightToBottomLeftResult; // set result array = returned cell indexes
+    }
+    else if (drawResult) {
+        draw = true; // set draw flag to true
+    }
 
     if (winner) {
         playerTurn.textContent = `Winner: ${label}`;
         console.log("CHECK 2!");
+        // for each cell in result, add complete css class
+        result.forEach(function(index) {
+            cells[index].classList.add("complete");
+        });
         cellDisabled(cells, true);
         return true;
     }
@@ -109,37 +137,37 @@ function cellDisabled(cells, boolValue) {
 
 function checkRows(board) {
     if (board[0] === board[1] && board[1] === board[2] && board[0] !== "") {
-        return true;
+        return [0, 1, 2];
     }
     else if (board[3] === board[4] && board[4] === board[5] && board[3] !== "") {
-        return true;
+        return [3, 4, 5];
     }
     else if (board[6] === board[7] && board[7] === board[8] && board[6] !== "") {
-        return true;
+        return [6, 7, 8];
     }
     return false;
 }
 function checkColumns(board) {
     if (board[0] === board[3] && board[3] === board[6] && board[0] !== "") {
-        return true;
+        return [0, 3, 6];
     }
     else if (board[1] === board[4] && board[4] === board[7] && board[1] !== "") {
-        return true;
+        return [1, 4, 7];
     }
     else if (board[2] === board[5] && board[5] === board[8] && board[2] !== "") {
-        return true;
+        return [2, 5, 8];
     }
     return false;
 }
 function checkTopLeftToBottomRight(board) {
     if (board[0] === board[4] && board[4] === board[8] && board[0] !== "") {
-        return true;
+        return [0, 4, 8];
     }
     return false;
 }
 function checkTopRightToBottomLeft(board) {
     if (board[2] === board[4] && board[4] === board[6] && board[2] !== "") {
-        return true;
+        return [2, 4, 6];
     }
     return false;
 }

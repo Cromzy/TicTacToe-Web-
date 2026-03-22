@@ -17,7 +17,7 @@ h1 {
 
 label {
     font-size: 37px;
-    padding: 10px;
+    margin-bottom: 20px;
     text-decoration: underline;
     text-underline-offset: 10px;
 }
@@ -37,7 +37,7 @@ label {
 
 .cell {
     font-size:24px;
-    font-style: bold;
+    font-weight: bold;
 }
 
 .rows button {
@@ -62,18 +62,22 @@ label {
 
 #resetBtn {
     margin: 20px;
+    width: 80px;
     padding: 20px;
+    border-radius: 10px;
 }
 #resetBtn:hover {
     cursor:pointer;
 }
 
-/* #cell1 {
-    background-color: yellow;
+button.complete {
+    /*
+    change background color
+    */
+
+    background-color: rgba(6, 28, 228, 0.616);
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 50px;
+    
 }
-#cell5 {
-    background-color: yellow;
-}
-#cell9 {
-    background-color: yellow;
-} */
