@@ -20,10 +20,10 @@ function resetGame() {
     playerTurn.textContent = `Turn player: ${label}`; // reset label text
 
     // for each cell in result, remove complete css class
-        result.forEach(function(index) {
-            cells[index].classList.remove("complete");
-        });
-        result.length = 0; // empty array
+    result.forEach(function (index) {
+        cells[index].classList.remove("complete");
+    });
+    result.length = 0; // empty array
 }
 // For every cell… do this (simple for loop)
 cells.forEach(function (cell) {
@@ -47,39 +47,37 @@ function handleClick(event) {
     cell.textContent = label;
     // intialize board with current cells
     let board = createArray(cells);
-    if (checkGameOver(board)) return;
+    if (checkGameOver(board)) return; // if game over, dont leave function
     label = switchTurns(label);
 }
 
 // creates an array with the current cell values
 function createArray(cells) {
-    let num = []; // 
+    let num = []; // create new array
     cells.forEach(function (cell) {
         num.push(cell.textContent);
     });
     return num;
 }
 
+// check draw ... 
 function checkDraw() {
     return moves > 8; // returns true or false
 }
 
 function switchTurns(s) {
-
     if (s === "X") {
         playerTurn.textContent = `Turn player: O`;
         return "O";
     }
     // else
-        playerTurn.textContent = `Turn player: X`;
-        return "X";
-
+    playerTurn.textContent = `Turn player: X`;
+    return "X";
 }
 
 function checkGameOver(board) {
     let winner = false;
     let draw = false;
-    console.log("CHECK 1!");
 
     // Get return value (either array or false)
     let rowResult = checkRows(board);
@@ -111,19 +109,17 @@ function checkGameOver(board) {
 
     if (winner) {
         playerTurn.textContent = `Winner: ${label}`;
-        console.log("CHECK 2!");
         // for each cell in result, add complete css class
-        result.forEach(function(index) {
+        result.forEach(function (index) {
             cells[index].classList.add("complete");
         });
-        cellDisabled(cells, true);
+        cellDisabled(cells, true); // disable all cells
         return true;
     }
 
     if (draw) {
         playerTurn.textContent = `Game is a draw`;
-        console.log("CHECK 3!");
-        cellDisabled(cells, true);
+        cellDisabled(cells, true); // disable all cells
         return true;
     }
     return false;
@@ -134,7 +130,7 @@ function cellDisabled(cells, boolValue) {
         cell.disabled = boolValue; // disable all cells when game is ended
     });
 }
-
+// check row, return winning 3 cells or return false
 function checkRows(board) {
     if (board[0] === board[1] && board[1] === board[2] && board[0] !== "") {
         return [0, 1, 2];
@@ -147,6 +143,7 @@ function checkRows(board) {
     }
     return false;
 }
+// check column, return winning 3 cells or return false
 function checkColumns(board) {
     if (board[0] === board[3] && board[3] === board[6] && board[0] !== "") {
         return [0, 3, 6];
@@ -159,12 +156,14 @@ function checkColumns(board) {
     }
     return false;
 }
+// check top left diagonal, return winning 3 cells or return false
 function checkTopLeftToBottomRight(board) {
     if (board[0] === board[4] && board[4] === board[8] && board[0] !== "") {
         return [0, 4, 8];
     }
     return false;
 }
+// check top right diagonal, return winning 3 cells or return false
 function checkTopRightToBottomLeft(board) {
     if (board[2] === board[4] && board[4] === board[6] && board[2] !== "") {
         return [2, 4, 6];
